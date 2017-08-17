@@ -64,13 +64,18 @@ function createAccount(sender) {
     user = {id : sender,
             balance : 0};
     mem.users.push(user);
-    sendTextMessage(sender, "Congrasulations!, you have a Facecoin account");
+    sendTextMessage(sender, "Congrasulations! you have a Facecoin account");
     printBalance(sender);
 }
 function printBalance(sender){
-    let msg = " Your balance is: ";
-    msg +=  getBalance(sender);
-    sendTextMessage(sender, msg);
+    var counter = 0;
+    while(counter != 3000)
+        counter++;
+    if(counter == 3000){
+        let msg = " Your balance is: ";
+        msg +=  getBalance(sender);
+        sendTextMessage(sender, msg);
+    }
 }
 function getBalance(sender){
     let users = mem.users;
