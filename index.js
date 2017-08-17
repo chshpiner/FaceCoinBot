@@ -31,7 +31,6 @@ app.get('/', function (req, res) {
   res.end();
 })
 
-<<<<<<< HEAD
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
@@ -53,7 +52,7 @@ app.listen(app.get('port'), function() {
 /*
 EAAPleZB81ZAuABALZBsCFxi5znTisZCTf1LOty7AryCzapfe2Mk54XGscg109wnvXvTLGalcgmhgkiV9ME2OmmFnhtEgkRgZCqnylFMbW8kP3ZBy6Xa5QY62k8YAg3115NJYUIWGzdtgBQ3hH1QAM1ON3pEbH5WDnJ6czCDEjgZAQZDZD
 */
-=======
+
 // Index route
 app.get('/', function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -62,4 +61,3 @@ app.get('/', function (req, res) {
 })
 
 
->>>>>>> 58b9739fca1785ff14845c93754a7a788b9f5af4
