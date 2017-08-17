@@ -52,7 +52,7 @@ app.post('/webhook/', function (req, res) {
 var arr;
 arr = [];
 function setSelling(sender, text) {
-    let obj = {sender:text};
+    let obj = {sender:sender,text:text};
     arr.push(obj);
     console.log(arr[0]);
 }
