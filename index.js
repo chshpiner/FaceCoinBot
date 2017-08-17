@@ -97,8 +97,8 @@ function contains(a, obj) {
     }
     return false;
 }
-
-let memory = {
+var memory;
+memory = {
     "users" : [],
     "sells" : []
 }
