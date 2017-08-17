@@ -40,8 +40,8 @@ app.post('/webhook/', function (req, res) {
 	    let sender = event.sender.id
 	    if (event.message && event.message.text) {
 		    let text = event.message.text
-            switch (text) {
-                case 'create account':
+            switch (check(text)) {
+                case 1:
                     createAccount(sender);
                     break;
                 case 'set selling':
@@ -57,22 +57,46 @@ app.post('/webhook/', function (req, res) {
 });
 var mem;
 mem = {
-    "users": []
+    "users": [],
+    "sellings": []
+}
+var acc=["Account","Accounts","account","accounts","Create","create"]
+function check(text){
+    var words = text.split(" ");
+    for(var i = 0; i< words.length; i++){
+        if(acc.indexOf(words[i])>-1){
+            return 1;
+        }
+    }
 }
 function createAccount(sender) {
-    let user;
-    user = {id : sender,
+    if(!isAccountExist(sender)) {
+        let user;
+        user = {id : sender,
             balance : 0};
-    mem.users.push(user);
-    sendTextMessage(sender, "Congrasulations! you have a Facecoin account");
+        mem.users.push(user);
+        sendTextMessage(sender, "Congrasulations! you have a Facecoin account");
+    } else {
+        sendTextMessage(sender, "You already have a Facecoin account")
+    }
     printBalance(sender);
+}
+function isAccountExist(sender){
+    let users = mem.users;
+    let user;
+    for(var i = 0; i < users.length;++i){
+        if(users[i].id == sender){
+            return true;
+        }
+    }
+    return false;
 }
 function printBalance(sender){
     setTimeout(function(){
         let msg = " Your balance is: ";
         msg +=  getBalance(sender);
         sendTextMessage(sender, msg);
-    },500);
+    },300);
 }
 function getBalance(sender){
     let users = mem.users;
