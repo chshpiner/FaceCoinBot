@@ -44,11 +44,17 @@ app.post('/webhook/', function (req, res) {
                 case 1:
                     createAccount(sender);
                     break;
-                case 'set selling':
+                case 2:
+                    charge(sender, text);
+                    break;
+                case 3:
+                    setSelling(sender, text);
+                    break;
+                case 4:
                     setSelling(sender, text);
                     break;
                 default:
-                    sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+                    sendTextMessage(sender, "Oops! I didn't understand you :( well, I am very smart, but not as much as you... can you please try again?")
                     break;
             }
 	    }
@@ -61,11 +67,32 @@ mem = {
     "sellings": []
 }
 var acc=["Account","Accounts","account","accounts","Create","create"]
+var charge = ["Charge","charge","money","Balance","balance"]
+var pass = ["Password","password"]
+var shop = ["Shop","Sell","shop","sell"]
+var buy = ["Buy","buy"]
+
+function charge(sender,text){
+    var a= /\d+/;
+    x = text.match(a);
+    setBalance(sender,x)
+    printBalance(sender)
+}
+
 function check(text){
     var words = text.split(" ");
     for(var i = 0; i< words.length; i++){
         if(acc.indexOf(words[i])>-1){
             return 1;
+        }
+        else if(charge.indexOf(words[i])>-1){
+            return 2;
+        }
+        else if(shop.indexOf(words[i])>-1){
+            return 3;
+        }
+        else if(buy.indexOf(words[i])>-1){
+            return 4;
         }
     }
 }
@@ -106,6 +133,17 @@ function getBalance(sender){
             user = users[i];
         }
     }
+    return user.balance;
+}
+function setBalance(sender,x){
+    let users = mem.users;
+    let user;
+    for(var i = 0; i < users.length;++i){
+        if(users[i].id == sender){
+            user = users[i];
+        }
+    }
+    user.balance = user.balance + x;
     return user.balance;
 }
 function setSelling(sender, text) {
