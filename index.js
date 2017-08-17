@@ -50,8 +50,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 });
 function setSelling(sender, text) {
-    memory.sells.push({id:"5"});
-    console.log(sells[0]);
+    console.log(sender)
 }
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
@@ -87,20 +86,5 @@ app.get('/', function (req, res) {
     res.write(messengerButton);
     res.end();
 })
-
-
-function contains(a, obj) {
-    for (var i = 0; i < a.length; i++) {
-        if (a[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-}
-var memory;
-memory = {
-    "users" : [],
-    "sells" : []
-}
 
 
