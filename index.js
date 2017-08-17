@@ -25,6 +25,7 @@ app.get('/webhook/', function (req, res) {
 })
 // Index route
 app.get('/', function (req, res) {
+    console.log("bla bla");
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.status(200).send(req.query['hub.challenge']);
   res.end();
