@@ -72,7 +72,7 @@ function printBalance(sender){
         let msg = " Your balance is: ";
         msg +=  getBalance(sender);
         sendTextMessage(sender, msg);
-    },100);
+    },500);
 }
 function getBalance(sender){
     let users = mem.users;
