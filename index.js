@@ -67,13 +67,13 @@ mem = {
     "sellings": []
 }
 var acc=["Account","Accounts","account","accounts","Create","create"]
-var charge = ["Charge","charge","money","Balance","balance"]
+var charg = ["Charge","charge","money","Balance","balance"]
 var pass = ["Password","password"]
 var shop = ["Shop","Sell","shop","sell"]
 var buy = ["Buy","buy"]
 
 function charge(sender,text){
-    var a= /\d+/;
+    var a= "/\d+/";
     x = text.match(a);
     setBalance(sender,x)
     printBalance(sender)
@@ -85,7 +85,7 @@ function check(text){
         if(acc.indexOf(words[i])>-1){
             return 1;
         }
-        else if(charge.indexOf(words[i])>-1){
+        else if(charg.indexOf(words[i])>-1){
             return 2;
         }
         else if(shop.indexOf(words[i])>-1){
