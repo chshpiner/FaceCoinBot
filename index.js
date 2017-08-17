@@ -69,9 +69,9 @@ function createAccount(sender) {
 }
 function printBalance(sender){
     var counter = 0;
-    while(counter != 300000)
+    while(counter != 3000000)
         counter++;
-    if(counter == 300000){
+    if(counter == 3000000){
         sendTextMessage(sender, counter);
         let msg = " Your balance is: ";
         msg +=  getBalance(sender);
