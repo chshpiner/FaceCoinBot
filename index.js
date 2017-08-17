@@ -40,17 +40,48 @@ app.post('/webhook/', function (req, res) {
 	    let sender = event.sender.id
 	    if (event.message && event.message.text) {
 		    let text = event.message.text
-            if (text === 'set selling') {
-  		        setSelling(sender, text);
-  		        continue;
-  	        }
-		    sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            switch (text) {
+                case 'create account':
+                    creatAccount(sender);
+                    break;
+                case 'set selling':
+                    setSelling(sender, text);
+                    break;
+                default:
+                    sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+                    break;
+            }
 	    }
     }
     res.sendStatus(200)
 });
-var arr;
-arr = [];
+var mem;
+mem = {
+    "users": []
+}
+function createAccount(sender) {
+    let user;
+    user = {id : sender,
+            balance : 0};
+    mem.users.push(user);
+    sendTextMessage(sender, "Congrasulations!, you have a Facecoin account");
+    printBalance(sender);
+}
+function printBalance(sender){
+    let msg = " Your balance is: ";
+    msg +=  getBalance(sender);
+    sendTextMessage(sender, msg);
+}
+function getBalance(sender){
+    let users = mem.users;
+    let user;
+    for(var i = 0; i < users.length;++i){
+        if(users[i].id == sender){
+            user = users[i];
+        }
+    }
+    return user.balance;
+}
 function setSelling(sender, text) {
     let obj = {sender:sender,text:text};
     arr.push(obj);
