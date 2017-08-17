@@ -98,7 +98,7 @@ function contains(a, obj) {
     return false;
 }
 
-memory = {
+let memory = {
     "users" : [],
     "sells" : []
 }
