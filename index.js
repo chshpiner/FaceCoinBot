@@ -7,7 +7,7 @@ const path = require('path');
 const app = express()
 var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Facebook Messenger Bot</h1>This is a bot based on Messenger Platform QuickStart. For more details, see their <a href=\"https://developers.facebook.com/docs/messenger-platform/guides/quick-start\">docs</a>.<script src=\"https://button.glitch.me/button.js\" data-style=\"glitch\"></script><div class=\"glitchButton\" style=\"position:fixed;top:20px;right:20px;\"></div></body></html>";
 app.set('port', (process.env.PORT || 5000))
-
+const token = "<EAAPleZB81ZAuABADMpmZAFoKvIx9kdvbz0H06NlsqgjcC1G6p5zgZAhtAOZCMSrC4A2UgNmYk0wzCRNvtpOrmN9hW6cNde3GCvfEDpgzZAxkTxhE82vX4LswzWNF08ABUO9RJgYF7OXRagCvCXHK8HZC4RFQCoP3GmoWVLdKgzrCQZDZD>"
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -39,126 +39,16 @@ app.get('/', function (req, res) {
     res.end();
 })
 
-
-// Spin up the server
-app.listen(app.get('port'), function() {
-	console.log('running on port', app.get('port'))
+app.post('/webhook/', function (req, res) {
+    let messaging_events = req.body.entry[0].messaging
+    for (let i = 0; i < messaging_events.length; i++) {
+        let event = req.body.entry[0].messaging[i]
+        let sender = event.sender.id
+        if (event.message && event.message.text) {
+            let text = event.message.text
+            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+        }
+    }
+    res.sendStatus(200)
 })
-app.post('/webhook', function (req, res) {
-    console.log(req.body);
-    var data = req.body;
 
-    // Make sure this is a page subscription
-    if (data.object === 'FaceCoin') {
-
-        // Iterate over each entry - there may be multiple if batched
-        data.entry.forEach(function (entry) {
-            var pageID = entry.id;
-            var timeOfEvent = entry.time;
-
-            // Iterate over each messaging event
-            entry.messaging.forEach(function (event) {
-                if (event.message) {
-                    receivedMessage(event);
-                } else if (event.postback) {
-                    receivedPostback(event);
-                } else {
-                    console.log("Webhook received unknown event: ", event);
-                }
-            });
-        });
-        res.sendStatus(200);
-
-    }
-});
-
-function receivedMessage(event) {
-    var senderID = event.sender.id;
-    var recipientID = event.recipient.id;
-    var timeOfMessage = event.timestamp;
-    var message = event.message;
-
-    console.log("Received message for user %d and page %d at %d with message:",
-        senderID, recipientID, timeOfMessage);
-    console.log(JSON.stringify(message));
-
-    var messageId = message.mid;
-
-    var messageText = message.text;
-    var messageAttachments = message.attachments;
-
-    if (messageText) {
-        // If we receive a text message, check to see if it matches a keyword
-        // and send back the template example. Otherwise, just echo the text we received.
-        switch (messageText) {
-            case 'generic':
-                sendGenericMessage(senderID);
-                break;
-
-            default:
-                sendTextMessage(senderID, messageText);
-        }
-    } else if (messageAttachments) {
-        sendTextMessage(senderID, "Message with attachment received");
-    }
-}
-
-function receivedPostback(event) {
-    var senderID = event.sender.id;
-    var recipientID = event.recipient.id;
-    var timeOfPostback = event.timestamp;
-
-    // The 'payload' param is a developer-defined field which is set in a postback
-    // button for Structured Messages.
-    var payload = event.postback.payload;
-
-    console.log("Received postback for user %d and page %d with payload '%s' " +
-        "at %d", senderID, recipientID, payload, timeOfPostback);
-
-    // When a postback is called, we'll send a message back to the sender to
-    // let them know it was successful
-    sendTextMessage(senderID, "Postback called");
-}
-
-//////////////////////////
-// Sending helpers
-//////////////////////////
-function sendTextMessage(recipientId, messageText) {
-    var messageData = {
-        recipient: {
-            id: recipientId
-        },
-        message: {
-            text: messageText
-        }
-    };
-
-    callSendAPI(messageData);
-}
-
-function callSendAPI(messageData) {
-    request({
-        uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-        method: 'POST',
-        json: messageData
-
-    }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var recipientId = body.recipient_id;
-            var messageId = body.message_id;
-
-            console.log("Successfully sent generic message with id %s to recipient %s",
-                messageId, recipientId);
-        } else {
-            console.error("Unable to send message.");
-            console.error(response);
-            console.error(error);
-        }
-    });
-}
-
-// Set Express to listen out for HTTP requests
-var server = app.listen(process.env.PORT || 3000, function () {
-    console.log("Listening on port %s", server.address().port);
-});
