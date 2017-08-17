@@ -7,7 +7,6 @@ const path = require('path');
 const app = express()
 var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Facebook Messenger Bot</h1>This is a bot based on Messenger Platform QuickStart. For more details, see their <a href=\"https://developers.facebook.com/docs/messenger-platform/guides/quick-start\">docs</a>.<script src=\"https://button.glitch.me/button.js\" data-style=\"glitch\"></script><div class=\"glitchButton\" style=\"position:fixed;top:20px;right:20px;\"></div></body></html>";
 app.set('port', (process.env.PORT || 5000))
-const token = "<EAAPleZB81ZAuABADMpmZAFoKvIx9kdvbz0H06NlsqgjcC1G6p5zgZAhtAOZCMSrC4A2UgNmYk0wzCRNvtpOrmN9hW6cNde3GCvfEDpgzZAxkTxhE82vX4LswzWNF08ABUO9RJgYF7OXRagCvCXHK8HZC4RFQCoP3GmoWVLdKgzrCQZDZD>"
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}))
 
