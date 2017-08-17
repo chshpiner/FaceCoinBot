@@ -68,15 +68,11 @@ function createAccount(sender) {
     printBalance(sender);
 }
 function printBalance(sender){
-    var counter = 0;
-    while(counter != 30000000)
-        counter++;
-    if(counter == 30000000){
-        sendTextMessage(sender, counter);
+    setTimeout(function(){
         let msg = " Your balance is: ";
         msg +=  getBalance(sender);
         sendTextMessage(sender, msg);
-    }
+    },100);
 }
 function getBalance(sender){
     let users = mem.users;
