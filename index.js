@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
+    console.log("aaaaaaaa");
 	if (req.query['hub.mode'] === 'subscribe' &&req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
         console.log("Validating webhook");
 		res.status(200).send(req.query['hub.challenge']);
@@ -32,6 +33,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/webhook/', function (req, res) {
+    onsole.log("ccccccccc");
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
 	    let event = req.body.entry[0].messaging[i]
