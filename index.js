@@ -42,7 +42,7 @@ app.post('/webhook/', function (req, res) {
 		    let text = event.message.text
             switch (text) {
                 case 'create account':
-                    creatAccount(sender);
+                    createAccount(sender);
                     break;
                 case 'set selling':
                     setSelling(sender, text);
