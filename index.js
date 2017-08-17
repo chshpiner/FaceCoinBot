@@ -13,12 +13,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 // Process application/json
 app.use(bodyParser.json())
 
-// Index route
-app.get('/', function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.status(200).send(req.query['hub.challenge']);
-  res.end();
-})
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
@@ -28,6 +22,12 @@ app.get('/webhook/', function (req, res) {
 	}
     res.sendStatus(403); 
 	res.send('Error, wrong token')
+})
+// Index route
+app.get('/', function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.status(200).send(req.query['hub.challenge']);
+  res.end();
 })
 
 // Spin up the server
