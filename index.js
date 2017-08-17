@@ -17,7 +17,6 @@ app.use(bodyParser.json())
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
-        console.log("Validating webhook");
 		res.status(200).send(req.query['hub.challenge']);
 	}
     res.sendStatus(403); 
@@ -25,8 +24,8 @@ app.get('/webhook/', function (req, res) {
 })
 // Index route
 app.get('/', function (req, res) {
-    console.log("bla bla");
   res.writeHead(200, {'Content-Type': 'text/html'});
+  res.send(req.query['hub.challenge']);
   res.end();
 })
 
