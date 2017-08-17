@@ -50,7 +50,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 });
 function setSelling(sender, text) {
-    sells.push({id:"5"});
+    memory.sells.push({id:"5"});
     console.log(sells[0]);
 }
 function sendTextMessage(sender, text) {
