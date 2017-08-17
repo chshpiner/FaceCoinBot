@@ -49,8 +49,11 @@ app.post('/webhook/', function (req, res) {
     }
     res.sendStatus(200)
 });
+var arr;
+arr = [];
 function setSelling(sender, text) {
-    console.log(sender);
+    arr.push(sender);
+    console.log(arr[0]);
 }
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
