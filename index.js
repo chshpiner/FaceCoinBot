@@ -74,7 +74,7 @@ var buy = ["Buy","buy"]
 
 function charge(sender,text){
     var a= "/\d+/";
-    x = text.match(a);
+    var x = text.match(a);
     setBalance(sender,x)
     printBalance(sender)
 }
