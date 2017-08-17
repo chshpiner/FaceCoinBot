@@ -54,7 +54,7 @@ app.post('/webhook/', function (req, res) {
                     setSelling(sender, text);
                     break;
                 default:
-                    sendTextMessage(sender, "Oops! I didn't understand you :( well, I am very smart, but not as much as you... can you please try again?")
+                    sendTextMessage(sender, "Oops! I didn't understand you :( Well, I am very smart, but not as much as you... can you please try again?")
                     break;
             }
 	    }
@@ -75,8 +75,13 @@ var buy = ["Buy","buy"]
 function charge(sender,text){
     var a= "/\d+/";
     var x = text.match(a);
-    setBalance(sender,x)
-    printBalance(sender)
+    if(isAccountExist(sender)){
+        setBalance(sender,x)
+        printBalance(sender)
+    }
+    else{
+        sendTextMessage(sender, "Oy, you are trying to charge your account, but you don't have one! Please creat a Facecoin account first")
+    }
 }
 
 function check(text){
@@ -102,8 +107,12 @@ function createAccount(sender) {
         user = {id : sender,
             balance : 0};
         mem.users.push(user);
-        sendTextMessage(sender, "Congrasulations! you have a Facecoin account");
-    } else {
+        
+        sendTextMessage(sender, "Creating your Facecoin account...");
+setTimeout(function(){
+        sendTextMessage(sender, "Congrasulations! you have created a brand new Facecoin account!");
+    },300);   
+ } else {
         sendTextMessage(sender, "You already have a Facecoin account")
     }
     printBalance(sender);
@@ -123,7 +132,7 @@ function printBalance(sender){
         let msg = " Your balance is: ";
         msg +=  getBalance(sender);
         sendTextMessage(sender, msg);
-    },300);
+    },500);
 }
 function getBalance(sender){
     let users = mem.users;
