@@ -72,6 +72,10 @@ var uniqueName = ["name","Name"];
 var shop = ["Shop","Sell","shop","sell"];
 var buy = ["Buy","buy"];
 function setName(sender,text){
+     if(!isAccountExist(sender)){
+         sendTextMessage(sender, "Do you want to sell? graet! you need to create an account first");
+         return;
+     }
      var words = text.split(" ");
      var name = words[1];
      if(isTheNameUsed(name)){
