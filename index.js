@@ -243,7 +243,7 @@ function createAccount(sender) {
         let user;
         user = {id : sender,
             balance : 0,
-            Name : sender,
+            name : sender,
             Items: []
         };
         mem.users.push(user);
