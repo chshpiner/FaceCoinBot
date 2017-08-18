@@ -75,6 +75,7 @@ var buy = ["Buy","buy"]
 function charge(sender,text){
     var a= /\d+/g;
     var x = text.match(a);
+    x = parseInt(x);
     sendTextMessage(sender, x);
     if(isAccountExist(sender)){
         setBalance(sender,x)
