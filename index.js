@@ -121,7 +121,8 @@ function buyItem(sender, text){
         for(var i = 0; i < users.length;++i){
         if(users[i].Name == seller){
             seller = users[i];
-            items = users[i].Items; 
+            items = users[i].Items;
+            console.log(items);
             for(var j = 0 ; j < items.length; ++j){
                 item = items[j];
                 if(item.name == itemName){
@@ -133,7 +134,7 @@ function buyItem(sender, text){
                         } else {
                             user.balance -= item.price * amount;
                             seller.balance += item.price * amount;
-                            item.amount -= amount;
+                            item[j].amount -= amount;
                             sendTextMessage(sender,"Your purchase has been procced successfully");
                             printBalance(sender);
                             sendTextMessage(seller.id, user.name + " bought " + amount + itemName);
