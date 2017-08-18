@@ -96,6 +96,9 @@ function setName(sender,text){
      }
      var words = text.split(" ");
      var name = words[1];
+     if (!name){
+         sendTextMessage(sender, "Please write a name")
+     }
      if(isTheNameUsed(name)){
          sendTextMessage(sender, "Sorry, the name is already taken.\
          Try again");
@@ -164,7 +167,7 @@ function check(text){
             return 4;
         }
         else if(add.indexOf(words[i])>-1){
-            return 4;
+            return 5;
         }
     }
 }
