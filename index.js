@@ -75,7 +75,7 @@ function sendTextMessage(sender, text) {
     })
 }
 
-const token = "EAAPleZB81ZAuABALZBsCFxi5znTisZCTf1LOty7AryCzapfe2Mk54XGscg109wnvXvTLGalcgmhgkiV9ME2OmmFnhtEgkRgZCqnylFMbW8kP3ZBy6Xa5QY62k8YAg3115NJYUIWGzdtgBQ3hH1QAM1ON3pEbH5WDnJ6czCDEjgZAQZDZD";
+const token = "EAAPleZB81ZAuABAERwUoYyQYkhGgkqyboCE1CKs8VEQpZAYKeOr2ZAi0lAjlTCMpgJfK4dVWO6ZC884sE69yps32TgHyu8Gb1IRBWYUidceFjiIRy0qxMVP57nTu2VrZB4rirlXTWSQHZA2UpuIOF9E8MVoUkZBpQW3wLXAZCLzeM3Dvfkq4xmdkF";
 // Spin up the server
 app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
