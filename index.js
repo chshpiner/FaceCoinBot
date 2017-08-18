@@ -90,7 +90,7 @@ function setItem(sender,text){
         }
     }
     users[i].Items =users[i].Items + Item;
-    sendTextMessage(sender, "Your Items for sell: "+ users.Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
+    sendTextMessage(sender, "Your Items for sell: "+ users[i].Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
 }
 
 function setName(sender,text){
