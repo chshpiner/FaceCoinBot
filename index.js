@@ -67,7 +67,7 @@ mem = {
     "sellings": []
 }
 var acc=["Account","Accounts","account","accounts","Create","create"]
-var charg = ["Charge","charge","money","Balance","balance"]
+var charg = ["Charge","charge","money"]
 var pass = ["Password","password"]
 var shop = ["Shop","Sell","shop","sell"]
 var buy = ["Buy","buy"]
