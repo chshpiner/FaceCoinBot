@@ -92,6 +92,7 @@ function setItem(sender,text){
         }
     }
     users[i].Items.push(item);
+    console.log(users[i].Items);
     let msg = "";
         msg += "Item: " + item.name + " Amount: "+ item.amount + " Price: " + item.price; + "\n";
     sendTextMessage(sender, "Your Items for sell: \n" + msg + " The buyer needs to write: buy <your unique name> <Item> <amount>");
