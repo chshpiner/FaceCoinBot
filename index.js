@@ -98,6 +98,7 @@ function setItem(sender,text){
 }
 
 function buyItem(sender, text){
+    console.log("zzzzzzzz");
       if(!isAccountExist(sender)){
          sendTextMessage(sender, "Do you want to buy an item? That's great! You need to create an account first");
          return;
