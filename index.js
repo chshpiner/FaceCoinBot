@@ -89,7 +89,7 @@ function setItem(sender,text){
             break;
         }
     }
-    users[i].Items =users[i].Items + name;
+    users[i].Items =users[i].Items + Item;
     sendTextMessage(sender, "Your Items for sell: "+ users.Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
 }
 
@@ -116,7 +116,7 @@ function setName(sender,text){
         }
     }
     user.name = name;
-    sendTextMessage(sender, "Your unique name is "+ name+ " now you can sell items! If you want to add an item to sell write: add <item name> <amount> <price>");
+    sendTextMessage(sender, "Your unique name is "+ name+ "! now you can sell items :) If you want to add an item to sell, please write: add <item name> <amount> <price>");
 }
 function isTheNameUsed(name){
     let users = mem.users;
