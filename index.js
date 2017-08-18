@@ -80,7 +80,7 @@ function charge(sender,text){
         if(x){
         setBalance(sender,x)
         sendTextMessage(sender, "Charging your account...");
-        setTimeout(printBalance(sender),150);
+        printBalance(sender);
     }
     else {
         sendTextMessage(sender, "You are trying to charge money, but you didn't tell me how much... please specify an amount");
@@ -115,11 +115,9 @@ function createAccount(sender) {
             balance : 0};
         mem.users.push(user);
         
-        sendTextMessage(sender, "Creating your Facecoin account...");
-setTimeout(function(){
-        sendTextMessage(sender, "Congrasulations! you have created a brand new Facecoin account!");
-    },300);   
- } else {
+        //sendTextMessage(sender, "Creating your Facecoin account...");
+        sendTextMessage(sender, "Congrasulations! you have created a brand new Facecoin account!");   
+    } else {
         sendTextMessage(sender, "You already have a Facecoin account")
     }
     printBalance(sender);
