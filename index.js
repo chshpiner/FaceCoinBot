@@ -78,8 +78,14 @@ function charge(sender,text){
     x = parseInt(x);
     sendTextMessage(sender, x);
     if(isAccountExist(sender)){
+        if(x){
         setBalance(sender,x)
-        printBalance(sender)
+        sendTextMessage(sender, "Charging your account...");
+        setTimeout(printBalance(sender),150);
+    }
+    else {
+        sendTextMessage(sender, "You are trying to charge money, but you didn't tell me how much... please specify an amount");
+    }
     }
     else{
         sendTextMessage(sender, "Oy, you are trying to charge your account, but you don't have one! Please creat a Facecoin account first")
