@@ -76,7 +76,6 @@ function charge(sender,text){
     var a= /\d+/g;
     var x = text.match(a);
     x = parseInt(x);
-    sendTextMessage(sender, x);
     if(isAccountExist(sender)){
         if(x){
         setBalance(sender,x)
