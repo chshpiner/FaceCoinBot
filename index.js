@@ -131,7 +131,7 @@ function buyItem(sender, text){
             console.log(items);
             console.log("cccccc");
             for(var j = 0 ; j < items.length; j++){
-                item = items[j];
+                var item = items[j];
                 if(item.name == itemName){
                     if (amount > item.amount){
                         sendTextMessage(sender,"The seller has only " + item.amount + "of this item");
