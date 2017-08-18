@@ -112,7 +112,7 @@ function charge(sender,text){
     if(isAccountExist(sender)){
         if(x){
         setBalance(sender,x)
-        c
+        sendTextMessage(sender, "Charging your account...");
         printBalance(sender);
     }
     else {
