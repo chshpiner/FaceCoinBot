@@ -127,26 +127,25 @@ function buyItem(sender, text){
                 var item = items[j];
                 if(item.name == itemName){
                     if (amount > item.amount){
-                        sendTextMessage(sender,"The seller has only " + item.amount + "of this item");
+                        sendTextMessage(sender,"The seller has only " + item.amount + " of this item");
+                        return;
                     } else {
                         if(user.balance < item.price * amount){
                             sendTextMessage(sender, "You don't have enough money");
-                            break;
+                            return;
                         } else {
                             user.balance -= item.price * amount;
                             seller.balance += item.price * amount;
                             item.amount -= amount;
-                            sendTextMessage(sender,"Your purchase has been procced successfully\
-                            Your balance is: "+ user.balance);
-                            sendTextMessage(seller.id, user.name + " bought " + amount +" "+ itemName+"\
-                            Your balance is: "+ seler.balance);
+                            sendTextMessage(sender,"Your purchase has been procced successfully Your balance is: "+ user.balance);
+                            sendTextMessage(seller.id, user.name + " bought " + amount +" "+ itemName+" Your balance is: "+ seler.balance);
                             return;
                         }
                     }
                 }
             }
             sendTextMessage(sender, "The seller dosen't have that item");
-            break;
+            return;
          }
 
         }  
