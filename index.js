@@ -124,7 +124,7 @@ function buyItem(sender, text){
     } else {
         for(var i = 0; i < users.length;++i){
         console.log("bbbbbbb");
-        if(users[i].Name == seller){
+        if(users[i].name == seller){
             seller = users[i];
             items = users[i].Items;
             console.log(items);
