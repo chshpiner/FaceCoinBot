@@ -126,7 +126,7 @@ function buyItem(sender, text){
         if(users[i].name == seller){
             seller = users[i];
             var items = users[i].Items;
-            if(users[i].Items.indexOf( itemName)>-1){
+            for(var j = 0 ; j < items.length; j++){
                 var item = items[j];
                 if(item.name == itemName){
                     if (amount > item.amount){
