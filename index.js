@@ -116,7 +116,7 @@ function buyItem(sender, text){
         }
     }
     if(!isTheNameUsed(seller)){
-        sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
+        sendTextMessage(sender,"You are trying to buy an item from a seller that dosen't exist");
         return;
     } else {
         for(var i = 0; i < users.length;i++){
@@ -131,6 +131,7 @@ function buyItem(sender, text){
                     } else {
                         if(user.balance < item.price * amount){
                             sendTextMessage(sender, "You don't have enough money");
+                            break;
                         } else {
                             user.balance -= item.price * amount;
                             seller.balance += item.price * amount;
