@@ -48,10 +48,10 @@ app.post('/webhook/', function (req, res) {
                     charge(sender, text);
                     break;
                 case 3:
-                    setSelling(sender, text);
+                    setShop(sender, text);
                     break;
                 case 4:
-                    setSelling(sender, text);
+                    setName(sender, text);
                     break;
                 default:
                     sendTextMessage(sender, "Oops! I didn't understand you :( Well, I am very smart, but not as much as you... can you please try again?")
@@ -66,12 +66,44 @@ mem = {
     "users": [],
     "sellings": []
 }
-var acc=["Account","Accounts","account","accounts","Create","create"]
-var charg = ["Charge","charge","money"]
-var pass = ["Password","password"]
-var shop = ["Shop","Sell","shop","sell"]
-var buy = ["Buy","buy"]
-
+var acc=["Account","Accounts","account","accounts","Create","create"];
+var charg = ["Charge","charge","money"];
+var uniqueName = ["name","Name"];
+var shop = ["Shop","Sell","shop","sell"];
+var buy = ["Buy","buy"];
+function setName(sender,text){
+     var words = text.split(" ");
+     var name = words[1];
+     if(isTheNameUsed(name)){
+         sendTextMessage(sender, "Sorry, the name is already taken.\
+         Try again");
+         return;
+    }
+    let users = mem.users;
+    let user;
+    for(var i = 0; i < users.length;++i){
+        if(users[i].id == sender){
+            user = users[i];
+            break;
+        }
+    }
+    user.name = name;
+    sendTextMessage(sender, "Your unique name is "+ name+ " now you can sell items.\
+    If you want to add item to sell write:\
+    add <item name> <amount> <price>");
+}
+function isTheNameUsed(name){
+    for(var i = 0; i < users.length;++i){
+        if(users[i].name == name){
+            return true;
+        }
+    return false;
+}
+function setShop(sender){
+    sendTextMessage(sender, "In order to sell items you need to setup an unique name first,\
+    please write:\
+    name <your chosen name>");
+}
 function charge(sender,text){
     var a= /\d+/g;
     var x = text.match(a);
@@ -79,7 +111,7 @@ function charge(sender,text){
     if(isAccountExist(sender)){
         if(x){
         setBalance(sender,x)
-        sendTextMessage(sender, "Charging your account...");
+        c
         printBalance(sender);
     }
     else {
@@ -103,7 +135,7 @@ function check(text){
         else if(shop.indexOf(words[i])>-1){
             return 3;
         }
-        else if(buy.indexOf(words[i])>-1){
+        else if(uniqueName.indexOf(words[i])>-1){
             return 4;
         }
     }
@@ -112,7 +144,8 @@ function createAccount(sender) {
     if(!isAccountExist(sender)) {
         let user;
         user = {id : sender,
-            balance : 0};
+            balance : 0,
+            Name : null};
         mem.users.push(user);
         
         //sendTextMessage(sender, "Creating your Facecoin account...");
@@ -145,6 +178,7 @@ function getBalance(sender){
     for(var i = 0; i < users.length;++i){
         if(users[i].id == sender){
             user = users[i];
+            break;
         }
     }
     return user.balance;
