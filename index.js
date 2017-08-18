@@ -141,7 +141,7 @@ function buyItem(sender, text){
                         } else {
                             user.balance -= item.price * amount;
                             seller.balance += item.price * amount;
-                            item[j].amount -= amount;
+                            item.amount -= amount;
                             sendTextMessage(sender,"Your purchase has been procced successfully");
                             printBalance(sender);
                             sendTextMessage(seller.id, user.name + " bought " + amount + itemName);
