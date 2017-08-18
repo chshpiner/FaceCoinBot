@@ -84,9 +84,13 @@ function setItem(sender,text){
      var words = text.split(" ");
      var Item = [words[1], words[2], words[3]];
     let users = mem.users;
-    let user;
-    user.Items =User.Items + name;
-    sendTextMessage(sender, "Your Items for sell:"+ user.Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
+    for(var i = 0; i < users.length;++i){
+        if(users[i].id == sender){
+            break;
+        }
+    }
+    users[i].Items =Users[i].Items + name;
+    sendTextMessage(sender, "Your Items for sell:"+ users.Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
 }
 
 function setName(sender,text){
