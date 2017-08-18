@@ -116,6 +116,10 @@ function buyItem(sender, text){
     }
     if(!isTheNameUsed(seller)){
         sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
+        console.log(seller);
+        for(var w = 0 ; w< users.lenght; ++w){
+            console.log(users[w].name);
+        }
         return;
     } else {
         for(var i = 0; i < users.length;++i){
