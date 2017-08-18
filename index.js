@@ -56,6 +56,9 @@ app.post('/webhook/', function (req, res) {
                 case 5:
                     setItem(sender, text);
                     break;
+                case 6:
+                    buyItem(sender, text);
+                    break;
                 default:
                     sendTextMessage(sender, "Oops! I didn't understand you :( Well, I am very smart, but not as much as you... can you please try again?")
                     break;
@@ -82,15 +85,72 @@ function setItem(sender,text){
          return;
      }
     var words = text.split(" ");
-    var Item = [words[1], words[2], words[3]];
+    var item = {name:words[1],amount:  parseInt(words[2]),price: parseInt(words[3])};
     let users = mem.users;
     for(var i = 0; i < users.length;++i){
         if(users[i].id == sender){
             break;
         }
     }
-    users[i].Items =users[i].Items + Item;
-    sendTextMessage(sender, "Your Items for sell: "+ users[i].Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
+    users[i].Items.push(item);
+    let msg = "";
+    for(var j = 0 ; j < users[i].Items.length;++i){
+        msg += "Item: " + users[i].Items[j].name + "Amount: "+ users[i].Items[j].amount + "Price: " + users[i].Items[j].price; + "\n";
+    }
+    sendTextMessage(sender, "Your Items for sell: \n" + msg + " The buyer needs to write: buy <your unique name> <Item> <amount>");
+}
+
+function buyItem(sender, text){
+      if(!isAccountExist(sender)){
+         sendTextMessage(sender, "Do you want to buy an item? That's great! You need to create an account first");
+         return;
+     }
+    var words = text.split(" ");
+    var seller = words[1];
+    var itemName = words[2];
+    var amount = parseInt(words[3]);
+    let users = mem.users;
+    let user;
+    for(var i = 0; i < users.length;++i){
+        if(users[i].id == sender){
+            user = users[i];
+            break;
+        }
+    }
+    if(!isTheNameUsed(seller)){
+        sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
+        return;
+    } else {
+        for(var i = 0; i < users.length;++i){
+        if(users[i].Name == seller){
+            seller = users[i];
+            items = users[i].Items; 
+            for(var j = 0 ; j < items.length; ++j){
+                item = items[j];
+                if(item.name == itemName){
+                    if (amount > item.amount){
+                        sendTextMessage(sender,"The seller has only " + item.amount + "of this item");
+                    } else {
+                        if(user.balance < item.price * amount){
+                            sendTextMessage(sender, "You don't have enough money");
+                        } else {
+                            user.balance -= item.price * amount;
+                            seller.balance += item.price * amount;
+                            item.amount -= amount;
+                            sendTextMessage(sender,"Your purchase has been procced successfully");
+                            printBalance(sender);
+                            sendTextMessage(seller.id, user.name + " bought " + amount + itemName);
+                            printBalance(id);
+                            return;
+                        }
+                    }
+                }
+            }
+            sendTextMessage(sender, "The seller dosen't have that item");
+            break;
+        }
+
+    }  
 }
 
 function setName(sender,text){
@@ -167,6 +227,9 @@ function check(text){
         }
         else if(add.indexOf(words[i])>-1){
             return 5;
+        }
+        else if(buy.indexOf(words[i])>-1){
+            return 6;
         }
     }
 }
