@@ -69,8 +69,7 @@ app.post('/webhook/', function (req, res) {
 });
 var mem;
 mem = {
-    "users": [],
-    "sellings": []
+    "users": []
 }
 var acc=["Account","Accounts","account","accounts","Create","create"];
 var charg = ["Charge","charge","money"];
@@ -94,9 +93,7 @@ function setItem(sender,text){
     }
     users[i].Items.push(item);
     let msg = "";
-    for(var j = 0 ; j < users[i].Items.length;++i){
-        msg += "Item: " + users[i].Items[j].name + "Amount: "+ users[i].Items[j].amount + "Price: " + users[i].Items[j].price; + "\n";
-    }
+        msg += "Item: " + item.name + "Amount: "+ item.amount + "Price: " + item.price; + "\n";
     sendTextMessage(sender, "Your Items for sell: \n" + msg + " The buyer needs to write: buy <your unique name> <Item> <amount>");
 }
 
