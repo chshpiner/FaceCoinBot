@@ -81,21 +81,21 @@ function setItem(sender,text){
          sendTextMessage(sender, "Do you want to add an item? That's great! You need to create an account first");
          return;
      }
-     var words = text.split(" ");
-     var Item = [words[1], words[2], words[3]];
+    var words = text.split(" ");
+    var Item = [words[1], words[2], words[3]];
     let users = mem.users;
     for(var i = 0; i < users.length;++i){
         if(users[i].id == sender){
             break;
         }
     }
-    users[i].Items =Users[i].Items + name;
-    sendTextMessage(sender, "Your Items for sell:"+ users.Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
+    users[i].Items =users[i].Items + name;
+    sendTextMessage(sender, "Your Items for sell: "+ users.Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
 }
 
 function setName(sender,text){
      if(!isAccountExist(sender)){
-         sendTextMessage(sender, "Do you want to sell? graet! you need to create an account first");
+         sendTextMessage(sender, "Do you want to sell? great! please create an account first");
          return;
      }
      var words = text.split(" ");
@@ -104,8 +104,7 @@ function setName(sender,text){
          sendTextMessage(sender, "Please write a name")
      }
      if(isTheNameUsed(name)){
-         sendTextMessage(sender, "Sorry, the name is already taken.\
-         Try again");
+         sendTextMessage(sender, "Sorry, the name is already taken. Try again");
          return;
     }
     let users = mem.users;
@@ -117,9 +116,7 @@ function setName(sender,text){
         }
     }
     user.name = name;
-    sendTextMessage(sender, "Your unique name is "+ name+ " now you can sell items.\
-    If you want to add item to sell write:\
-    add <item name> <amount> <price>");
+    sendTextMessage(sender, "Your unique name is "+ name+ " now you can sell items! If you want to add an item to sell write: add <item name> <amount> <price>");
 }
 function isTheNameUsed(name){
     let users = mem.users;
@@ -132,9 +129,7 @@ function isTheNameUsed(name){
   }
 }
 function setShop(sender){
-    sendTextMessage(sender, "In order to sell items you need to setup an unique name first,\
-    please write:\
-    name <your chosen name>");
+    sendTextMessage(sender, "In order to sell items you need to setup an unique name first, please write: name <your chosen name>");
 }
 function charge(sender,text){
     var a= /\d+/g;
