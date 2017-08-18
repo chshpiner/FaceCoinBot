@@ -59,6 +59,9 @@ app.post('/webhook/', function (req, res) {
                 case 6:
                     buyItem(sender, text);
                     break;
+                case 7:
+                    printBalance(sender);
+                    break;
                 default:
                     sendTextMessage(sender, "Oops! I didn't understand you :( Well, I am very smart, but not as much as you... can you please try again?")
                     break;
@@ -77,7 +80,7 @@ var uniqueName = ["name","Name"];
 var shop = ["Shop","Sell","shop","sell"];
 var buy = ["Buy","buy"];
 var add = ["Add","add"];
-
+var bal = ["Balance","balance"];
 function setItem(sender,text){
      if(!isAccountExist(sender)){
          sendTextMessage(sender, "Do you want to add an item? That's great! You need to create an account first");
@@ -123,7 +126,7 @@ function buyItem(sender, text){
         if(users[i].name == seller){
             seller = users[i];
             var items = users[i].Items;
-            for(var j = 0 ; j < items.length; j++){
+            if(users[i].Items.indexOf( itemName)>-1){
                 var item = items[j];
                 if(item.name == itemName){
                     if (amount > item.amount){
@@ -230,6 +233,9 @@ function check(text){
         }
         else if(buy.indexOf(words[i])>-1){
             return 6;
+        }
+        else if(bal.indexOf(words[i])>-1){
+            return 7;
         }
     }
 }
