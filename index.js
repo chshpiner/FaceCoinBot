@@ -98,7 +98,6 @@ function setItem(sender,text){
 }
 
 function buyItem(sender, text){
-    console.log("zzzzzzzz");
       if(!isAccountExist(sender)){
          sendTextMessage(sender, "Do you want to buy an item? That's great! You need to create an account first");
          return;
@@ -115,16 +114,15 @@ function buyItem(sender, text){
             break;
         }
     }
-    console.log("aaaaa");
     if(!isTheNameUsed(seller)){
         sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
         return;
     } else {
+        console.log("bbbbbbb");
         for(var i = 0; i < users.length;++i){
         if(users[i].Name == seller){
             seller = users[i];
             items = users[i].Items;
-            console.log("bbbbbbb");
             console.log(items);
             console.log("cccccc");
             for(var j = 0 ; j < items.length; ++j){
