@@ -117,19 +117,12 @@ function buyItem(sender, text){
     }
     if(!isTheNameUsed(seller)){
         sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
-        console.log(seller);
-        for(var w = 0 ; w < users.lenght; w++){
-            console.log(users[w].name);
-        }
         return;
     } else {
         for(var i = 0; i < users.length;i++){
-        console.log("bbbbbbb");
         if(users[i].name == seller){
             seller = users[i];
             var items = users[i].Items;
-            console.log(items);
-            console.log("cccccc");
             for(var j = 0 ; j < items.length; j++){
                 var item = items[j];
                 if(item.name == itemName){
@@ -144,8 +137,8 @@ function buyItem(sender, text){
                             item.amount -= amount;
                             sendTextMessage(sender,"Your purchase has been procced successfully\
                             Your balance is: "+ user.balance);
-                            sendTextMessage(seller.id, user.name + " bought " + amount + itemName+"\
-                            our balance is: "+ seler.balance);
+                            sendTextMessage(seller.id, user.name + " bought " + amount +" "+ itemName+"\
+                            Your balance is: "+ seler.balance);
                             return;
                         }
                     }
