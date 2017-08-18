@@ -152,7 +152,7 @@ function createAccount(sender) {
         let user;
         user = {id : sender,
             balance : 0,
-            Name : null};
+            Name : sender};
         mem.users.push(user);
         
         //sendTextMessage(sender, "Creating your Facecoin account...");
