@@ -93,6 +93,8 @@ function setName(sender,text){
     add <item name> <amount> <price>");
 }
 function isTheNameUsed(name){
+    let users = mem.users;
+    let user;
     for(var i = 0; i < users.length;++i){
         if(users[i].name == name){
             return true;
