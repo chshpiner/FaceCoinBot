@@ -98,6 +98,7 @@ function isTheNameUsed(name){
             return true;
         }
     return false;
+  }
 }
 function setShop(sender){
     sendTextMessage(sender, "In order to sell items you need to setup an unique name first,\
@@ -233,4 +234,3 @@ app.get('/', function (req, res) {
     res.write(messengerButton);
     res.end();
 })
-
