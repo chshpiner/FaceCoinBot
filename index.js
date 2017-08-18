@@ -80,7 +80,7 @@ var uniqueName = ["name","Name"];
 var shop = ["Shop","Sell","shop","sell"];
 var buy = ["Buy","buy"];
 var add = ["Add","add"];
-var bal = ["Balance","balance"];
+var bal = ["Current","current"];
 function setItem(sender,text){
      if(!isAccountExist(sender)){
          sendTextMessage(sender, "Do you want to add an item? That's great! You need to create an account first");
