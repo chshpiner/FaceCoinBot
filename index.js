@@ -93,7 +93,7 @@ function setItem(sender,text){
     }
     users[i].Items.push(item);
     let msg = "";
-        msg += "Item: " + item.name + "Amount: "+ item.amount + "Price: " + item.price; + "\n";
+        msg += "Item: " + item.name + " Amount: "+ item.amount + " Price: " + item.price; + "\n";
     sendTextMessage(sender, "Your Items for sell: \n" + msg + " The buyer needs to write: buy <your unique name> <Item> <amount>");
 }
 
@@ -118,8 +118,8 @@ function buyItem(sender, text){
         sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
         return;
     } else {
-        console.log("bbbbbbb");
         for(var i = 0; i < users.length;++i){
+        console.log("bbbbbbb");
         if(users[i].Name == seller){
             seller = users[i];
             items = users[i].Items;
