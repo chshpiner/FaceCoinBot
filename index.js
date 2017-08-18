@@ -118,19 +118,19 @@ function buyItem(sender, text){
     if(!isTheNameUsed(seller)){
         sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
         console.log(seller);
-        for(var w = 0 ; w< users.lenght; ++w){
+        for(var w = 0 ; w < users.lenght; w++){
             console.log(users[w].name);
         }
         return;
     } else {
-        for(var i = 0; i < users.length;++i){
+        for(var i = 0; i < users.length;i++){
         console.log("bbbbbbb");
         if(users[i].name == seller){
             seller = users[i];
             var items = users[i].Items;
             console.log(items);
             console.log("cccccc");
-            for(var j = 0 ; j < items.length; ++j){
+            for(var j = 0 ; j < items.length; j++){
                 item = items[j];
                 if(item.name == itemName){
                     if (amount > item.amount){
@@ -175,7 +175,7 @@ function setName(sender,text){
     }
     let users = mem.users;
     let user;
-    for(var i = 0; i < users.length;++i){
+    for(var i = 0; i < users.length;i++){
         if(users[i].id == sender){
             user = users[i];
             break;
@@ -187,7 +187,8 @@ function setName(sender,text){
 function isTheNameUsed(name){
     let users = mem.users;
     let user;
-    for(var i = 0; i < users.length;++i){
+    for(var i = 0; i < users.length; i++){
+        console.log("check:"+users[i].name);
         if(users[i].name == name){
             return true;
         }
