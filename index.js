@@ -53,6 +53,9 @@ app.post('/webhook/', function (req, res) {
                 case 4:
                     setName(sender, text);
                     break;
+                case 5:
+                    setItem(sender, text);
+                    break;
                 default:
                     sendTextMessage(sender, "Oops! I didn't understand you :( Well, I am very smart, but not as much as you... can you please try again?")
                     break;
@@ -71,6 +74,21 @@ var charg = ["Charge","charge","money"];
 var uniqueName = ["name","Name"];
 var shop = ["Shop","Sell","shop","sell"];
 var buy = ["Buy","buy"];
+var add = ["Add","add"];
+
+function setItem(sender,text){
+     if(!isAccountExist(sender)){
+         sendTextMessage(sender, "Do you want to add an item? That's great! You need to create an account first");
+         return;
+     }
+     var words = text.split(" ");
+     var Item = [words[1], words[2], words[3]];
+    let users = mem.users;
+    let user;
+    user.Items =User.Items + name;
+    sendTextMessage(sender, "Your Items for sell:"+ user.Items+ " The buyer needs to write: buy <your unique name> <Item> <amount>");
+}
+
 function setName(sender,text){
      if(!isAccountExist(sender)){
          sendTextMessage(sender, "Do you want to sell? graet! you need to create an account first");
@@ -145,6 +163,9 @@ function check(text){
         else if(uniqueName.indexOf(words[i])>-1){
             return 4;
         }
+        else if(add.indexOf(words[i])>-1){
+            return 4;
+        }
     }
 }
 function createAccount(sender) {
@@ -152,7 +173,9 @@ function createAccount(sender) {
         let user;
         user = {id : sender,
             balance : 0,
-            Name : sender};
+            Name : sender,
+            Items: []
+        };
         mem.users.push(user);
         
         //sendTextMessage(sender, "Creating your Facecoin account...");
