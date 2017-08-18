@@ -148,9 +148,10 @@ function buyItem(sender, text){
             }
             sendTextMessage(sender, "The seller dosen't have that item");
             break;
-        }
+         }
 
-    }  
+        }  
+    }
 }
 
 function setName(sender,text){
