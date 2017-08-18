@@ -73,8 +73,9 @@ var shop = ["Shop","Sell","shop","sell"]
 var buy = ["Buy","buy"]
 
 function charge(sender,text){
-    var a= "/\d+/";
+    var a= /\d+/g;
     var x = text.match(a);
+    sendTextMessage(sender, x);
     if(isAccountExist(sender)){
         setBalance(sender,x)
         printBalance(sender)
