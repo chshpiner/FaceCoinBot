@@ -114,6 +114,7 @@ function buyItem(sender, text){
             break;
         }
     }
+    console.log("aaaaa");
     if(!isTheNameUsed(seller)){
         sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
         return;
@@ -122,7 +123,9 @@ function buyItem(sender, text){
         if(users[i].Name == seller){
             seller = users[i];
             items = users[i].Items;
+            console.log("bbbbbbb");
             console.log(items);
+            console.log("cccccc");
             for(var j = 0 ; j < items.length; ++j){
                 item = items[j];
                 if(item.name == itemName){
