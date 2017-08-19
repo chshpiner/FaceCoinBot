@@ -59,6 +59,9 @@ app.post('/webhook/', function (req, res) {
                 case 6:
                     buyItem(sender, text);
                     break;
+                case 7:
+                    printBalance(sender);
+                    break;
                 default:
                     sendTextMessage(sender, "Oops! I didn't understand you :( Well, I am very smart, but not as much as you... can you please try again?")
                     break;
@@ -69,8 +72,7 @@ app.post('/webhook/', function (req, res) {
 });
 var mem;
 mem = {
-    "users": [],
-    "sellings": []
+    "users": []
 }
 var acc=["Account","Accounts","account","accounts","Create","create"];
 var charg = ["Charge","charge","money"];
@@ -78,7 +80,7 @@ var uniqueName = ["name","Name"];
 var shop = ["Shop","Sell","shop","sell"];
 var buy = ["Buy","buy"];
 var add = ["Add","add"];
-
+var bal = ["Current","current"];
 function setItem(sender,text){
      if(!isAccountExist(sender)){
          sendTextMessage(sender, "Do you want to add an item? That's great! You need to create an account first");
@@ -93,10 +95,9 @@ function setItem(sender,text){
         }
     }
     users[i].Items.push(item);
+    console.log(users[i].Items);
     let msg = "";
-    for(var j = 0 ; j < users[i].Items.length;++i){
-        msg += "Item: " + users[i].Items[j].name + "Amount: "+ users[i].Items[j].amount + "Price: " + users[i].Items[j].price; + "\n";
-    }
+        msg += "Item: " + item.name + " Amount: "+ item.amount + " Price: " + item.price; + "\n";
     sendTextMessage(sender, "Your Items for sell: \n" + msg + " The buyer needs to write: buy <your unique name> <Item> <amount>");
 }
 
@@ -118,39 +119,40 @@ function buyItem(sender, text){
         }
     }
     if(!isTheNameUsed(seller)){
-        sendTextMessage(sender,"You are trying to buy an item from a seller that is not exist");
+        sendTextMessage(sender,"You are trying to buy an item from a seller that dosen't exist");
         return;
     } else {
-        for(var i = 0; i < users.length;++i){
-        if(users[i].Name == seller){
+        for(var i = 0; i < users.length;i++){
+        if(users[i].name == seller){
             seller = users[i];
-            items = users[i].Items; 
-            for(var j = 0 ; j < items.length; ++j){
-                item = items[j];
+            var items = users[i].Items;
+            for(var j = 0 ; j < items.length; j++){
+                var item = items[j];
                 if(item.name == itemName){
                     if (amount > item.amount){
-                        sendTextMessage(sender,"The seller has only " + item.amount + "of this item");
+                        sendTextMessage(sender,"The seller has only " + item.amount + " of this item");
+                        return;
                     } else {
                         if(user.balance < item.price * amount){
                             sendTextMessage(sender, "You don't have enough money");
+                            return;
                         } else {
                             user.balance -= item.price * amount;
                             seller.balance += item.price * amount;
                             item.amount -= amount;
-                            sendTextMessage(sender,"Your purchase has been procced successfully");
-                            printBalance(sender);
-                            sendTextMessage(seller.id, user.name + " bought " + amount + itemName);
-                            printBalance(id);
+                            sendTextMessage(sender,"Your purchase has been procced successfully Your balance is: "+ user.balance);
+                            sendTextMessage(seller.id, user.name + " bought " + amount +" "+ itemName+" Your balance is: "+ seler.balance);
                             return;
                         }
                     }
                 }
             }
             sendTextMessage(sender, "The seller dosen't have that item");
-            break;
-        }
+            return;
+         }
 
-    }  
+        }  
+    }
 }
 
 function setName(sender,text){
@@ -169,7 +171,7 @@ function setName(sender,text){
     }
     let users = mem.users;
     let user;
-    for(var i = 0; i < users.length;++i){
+    for(var i = 0; i < users.length;i++){
         if(users[i].id == sender){
             user = users[i];
             break;
@@ -181,7 +183,8 @@ function setName(sender,text){
 function isTheNameUsed(name){
     let users = mem.users;
     let user;
-    for(var i = 0; i < users.length;++i){
+    for(var i = 0; i < users.length; i++){
+        console.log("check:"+users[i].name);
         if(users[i].name == name){
             return true;
         }
@@ -231,6 +234,9 @@ function check(text){
         else if(buy.indexOf(words[i])>-1){
             return 6;
         }
+        else if(bal.indexOf(words[i])>-1){
+            return 7;
+        }
     }
 }
 function createAccount(sender) {
@@ -238,7 +244,7 @@ function createAccount(sender) {
         let user;
         user = {id : sender,
             balance : 0,
-            Name : sender,
+            name : sender,
             Items: []
         };
         mem.users.push(user);
